@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Assignment 3 | Socket.io</title>
+<!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway&display=swap" > 
+</head>
+<div id="page-wrapper">
+	<!-- https://www.w3schools.com/howto/howto_js_topnav_responsive.asp -->
+	<nav class="topnav" id="myTopnav">
+		<a href="#home" class="active">Home</a>
+		<a href="#about">About</a>
+		<a href="#contact">Contact</a>
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+		<i class="fa fa-bars"></i>
+		</a>
+	</nav>
+	<body>
+		<div id="body-wrapper">
+			<header class="flex-parent">
+				<h1 id="siteTitle">Wild Cards Casino</h1>
+			</header>
+			<main>
+				<section>
+					<div id="section-wrapper">
+						<h1 class="heading">Coinflip City</h1>
+						<h2>Bank Roll ($):</h2>
+						<p id="money">100</p>
+						<!-- Coin Animation Area -->
+						<div id="coin" class="coinflip"></div>
+						<div class="controls">
+							<div id="bet-value">Betting <span id="bet-amount">50</span> dollars on <span id="bet-side">Nothing</span></div>
+							<div class="money-dashboard">
+								<input id="money-slider" type="range" name="money-slider" value="50" min="0" max="100">
+								<div class="flex-parent-row">
+									<div id="heads" class="buttons">Heads</div>
+									<div id="tails" class="buttons">Tails</div>
+									<div id="ready" class="buttons">Ready</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+			<div id="chat">
+
+			</div>
+		</div> <!--END container-->
+	</body>
+	<!-- https://codepen.io/eshrath/pen/odxLJM -->
+	<!-- FOOTER START -->
+	<div class="footer">
+			<div class="contain">
+			<div class="col">
+			<h1>Company</h1>
+			<ul>
+				<li>About</li>
+				<li>Mission</li>
+				<li>Services</li>
+				<li>Social</li>
+				<li>Get in touch</li>
+			</ul>
+			</div>
+			<div class="col">
+			<h1>Products</h1>
+			<ul>
+				<li>About</li>
+				<li>Mission</li>
+				<li>Services</li>
+				<li>Social</li>
+				<li>Get in touch</li>
+			</ul>
+			</div>
+			<div class="col">
+			<h1>Accounts</h1>
+			<ul>
+				<li>About</li>
+				<li>Mission</li>
+				<li>Services</li>
+				<li>Social</li>
+				<li>Get in touch</li>
+			</ul>
+			</div>
+			<div class="col">
+			<h1>Resources</h1>
+			<ul>
+				<li>Webmail</li>
+				<li>Redeem code</li>
+				<li>WHOIS lookup</li>
+				<li>Site map</li>
+				<li>Web templates</li>
+				<li>Email templates</li>
+			</ul>
+			</div>
+			<div class="col">
+			<h1>Support</h1>
+			<ul>
+				<li>Contact us</li>
+				<li>Web chat</li>
+				<li>Open ticket</li>
+			</ul>
+			</div>
+			<div class="col social">
+			<h1>Social</h1>
+			<ul>
+				<li><img src="https://svgshare.com/i/5fq.svg" width="32" style="width: 32px;"></li>
+				<li><img src="https://svgshare.com/i/5eA.svg" width="32" style="width: 32px;"></li>
+				<li><img src="https://svgshare.com/i/5f_.svg" width="32" style="width: 32px;"></li>
+			</ul>
+			</div>
+		<div class="clearfix"></div>
+		</div>
+	  </div>
+	<!-- END OF FOOTER -->
+	<!--INCLUDE LIBRARIES -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<script src="/static/responsiveNav.js"></script> 
+	<script>
+
+	//==== EVENT LISTENERS ====
+	$(function(){
+		let users = {};
+		var socket = io();
+
+		
+		//SOCKET LISTENERS
+
+			
+	});
+	</script>
+</div>
+</html>

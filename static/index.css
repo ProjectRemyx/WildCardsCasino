@@ -94,8 +94,67 @@ justify-content: center;
     margin-top: 0;
     font-size: 3em;
   }
+
+  .coinflip {
+    /* Size of Coin */
+    height: 200px;
+    width: 200px;
+    /* Coin Picture */
+    background-image: url("/static/coin.png");
+    background-size: cover;
+    background-position: center;
+    margin: auto; /* Set coin to be in the middle */
+    border-radius: 50%; /* Make coin round*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform: rotateY(0deg) rotateX(0deg);
+    transition: 1s;
+  }
+    .flip {
+      transition: 1s;
+      transform: rotateY(720deg) rotateX(720deg);
+    }
+    .toss {
+      animation: toss .7s forwards ease-in-out;
+    }
+    .coinflip:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 185px;
+      width: 185px;
+      display: block;
+      background: none;
+      border: 1px solid rgba(black, .25);
+      border-radius: 50%;
+    }
+    .coinflip:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 190px;
+      width: 190px;
+      display: block;
+      background: none;
+      border: 1px solid rgba(white, .15);
+      border-radius: 50%;
+    }
   
+  @keyframes toss {
+    0% { top: 0px;}
+    50% { top: -150px;}
+    100% { top: 0px;}
+  }
+
   .controls{
+    margin-top: 1em;
     font-size: 2em;
   }
 

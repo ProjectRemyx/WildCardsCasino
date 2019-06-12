@@ -20,56 +20,6 @@ justify-content: center;
   justify-content: center;
 }
 
-#heads{
-/* Size of Coin */
-height: 100px;
-width: 100px;
-/* Coin Picture */
-background-image: url("/static/heads.png");
-background-size: cover;
-background-position: center;
-background-color: transparent;
-border: none;
-}
-
-#tails{
-  /* Size of Coin */
-  height: 100px;
-  width: 100px;
-  /* Coin Picture */
-  background-image: url("/static/tails.png");
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  border: none;
-}
-
-#ready{
-  /* Size of Coin */
-  height: 100px;
-  width: 100px;
-  /* Coin Picture */
-  background-image: url("/static/start.png");
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-}
-
-.buttons{
-  border-radius: 50%;
-  padding: 0.5em;
-  margin: 1em;
-  border: 1px solid black;
-}
-
-button:hover{
-  box-shadow: 10px 10px 5px grey;
-}
-
-button:active{
-  transform:scale(0.8,0.8);
-}
-
 /* ----- NAV ----- */
 /* https://www.w3schools.com/howto/howto_js_topnav_responsive.asp */
 /* Add a black background color to the top navigation */
@@ -206,6 +156,61 @@ button:active{
     width: 25%;
   }
 
+#heads{
+/* Size of Coin */
+  height: 100px;
+  width: 100px;
+/* Coin Picture */
+  background-image: url("/static/heads.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+}
+    
+#tails{
+/* Size of Coin */
+  height: 100px;
+  width: 100px;
+/* Coin Picture */
+  background-image: url("/static/tails.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+}
+    
+#ready{
+/* Size of Coin */
+  height: 100px;
+  width: 100px;
+/* Coin Picture */
+  background-image: url("/static/start.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+}
+    
+.buttons{
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 1em;
+  border: 1px solid black;
+}
+    
+  button:hover{
+    box-shadow: 10px 10px 5px grey;
+  }
+    
+  button:active{
+    transform:scale(0.8,0.8);
+  }
+
+#log{
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-size: 2em;
+}
 
 
 

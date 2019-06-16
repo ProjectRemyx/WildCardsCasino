@@ -9,6 +9,7 @@ var betAmount = document.getElementById("bet-amount");
 var betSide = document.getElementById("bet-side");
 var sideOne = document.getElementById("heads");
 var sideTwo = document.getElementById("tails");
+var decision = document.getElementById("decision");
 var log = document.getElementById("log");
 
 var bankRoll = 100;
@@ -24,6 +25,7 @@ betSide.innerText = "heads";
 this.style.boxShadow = "10px 10px 5px grey";
 sideTwo.style.boxShadow = "";
 log.innerText = "Press start to flip!";
+decision.value = "heads";
 heads = 1;
 tails = 0;
 });
@@ -35,6 +37,7 @@ betSide.innerText = "tails";
 this.style.boxShadow = "10px 10px 5px grey";
 sideOne.style.boxShadow = "";
 log.innerText = "Press start to flip!";
+decision.value = "tails";
 tails = 1;
 heads = 0;
 });
@@ -113,6 +116,7 @@ function updateMoney()
 {
     money.innerText = bankRoll;
     betAmount.innerText = slider.value;
+    betAmount.value = slider.value;
     sliderAmount = parseInt(slider.value, 10);
 }
         

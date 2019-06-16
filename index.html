@@ -35,8 +35,9 @@
 							<div class="money-dashboard">
 								<input id="money-slider" type="range" name="money-slider" value="50" min="0" max="100">
 								<div class="flex-parent-row">
-									<button id="heads" class="buttons"></button>
-									<button id="tails" class="buttons"></button>
+									<button id="heads" class="buttons" value="heads"></button>
+									<button id="tails" class="buttons" value="tails"></button>
+									<button id="decision" class="hidden" value=""></button>
 									<button id="ready" class="buttons"></button>
 								</div>
 							</div>
@@ -127,10 +128,29 @@
 		let users = {};
 		var socket = io();
 
-		
-		//SOCKET LISTENERS
+		//On click of our ready button
+		$('#ready').click(function(e){
+			if($('#decision').val() == '')
+			{
+				$('#log').text("Please pick an amount and side to bet on.");
+				e.preventDefault(); //Stop page from loading
+			}
+			else
+			{
+				e.preventDefault(); //Stop page from loading
+				users.bet = $('#bet-amount').val(); //Get our bet amount
+				users.action = $('#decision').val(); //Get our bet decision 
+				socket.emit('Player Action', users); //Emit our information
+				$('#decision').val(''); //Reset decision for next time
+				return false;
+			}
+		});
 
-			
+		//SOCKET LISTENERS
+		socket.on('Player Action', function(msg){
+			$('#log').text("Action Sent");
+		});
+
 	});
 	</script>
 </div>

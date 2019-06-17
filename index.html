@@ -121,37 +121,5 @@
 		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 		<script src="/static/responsiveNav.js"></script> 
 		<script src="/static/coinflip.js"></script> 
-	<script>
-
-	//==== EVENT LISTENERS ====
-	$(function(){
-		let users = {};
-		var socket = io();
-
-		//On click of our ready button
-		$('#ready').click(function(e){
-			if($('#decision').val() == '')
-			{
-				$('#log').text("Please pick an amount and side to bet on.");
-				e.preventDefault(); //Stop page from loading
-			}
-			else
-			{
-				e.preventDefault(); //Stop page from loading
-				users.bet = $('#bet-amount').val(); //Get our bet amount
-				users.action = $('#decision').val(); //Get our bet decision 
-				socket.emit('Player Action', users); //Emit our information
-				$('#decision').val(''); //Reset decision for next time
-				return false;
-			}
-		});
-
-		//SOCKET LISTENERS
-		socket.on('Player Action', function(msg){
-			$('#log').text("Action Sent");
-		});
-
-	});
-	</script>
 </div>
 </html>

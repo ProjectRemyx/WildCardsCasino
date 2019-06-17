@@ -3,6 +3,8 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 let express = require('express');
 
+let playerActions = 0;
+
 //Static files served in static folder
 app.use('/static', express.static('static'))
 
@@ -17,9 +19,18 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
       console.log('user disconnected');
     });
+    
+    //When the server receives the emitted "Player Action" from the client, do this
     socket.on('Player Action', function(msg){
-      console.log(msg);
-      io.emit('Player Action', msg);
+      playerActions++; //Increase our recorded actions variable
+      socket.broadcast.emit('sentAction'); //Send sentAction back to client
+  
+      if(playerActions == 2)
+      {
+        startGame();
+        users = {};
+        playerActions = 0;
+      }
     });
 });
 

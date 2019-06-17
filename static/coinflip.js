@@ -3,16 +3,17 @@
 //Get our DOM elements
 var readyButton = document.getElementById('ready');
 var coin = document.querySelector('.coinflip');
-var money = document.getElementById("money");
-var slider = document.getElementById("money-slider");
-var betAmount = document.getElementById("bet-amount");
-var betSide = document.getElementById("bet-side");
-var sideOne = document.getElementById("heads");
-var sideTwo = document.getElementById("tails");
-var headsOption = document.getElementById("heads-option");
-var tailsOption = document.getElementById("tails-option");
-var decision = document.getElementById("decision");
-var log = document.getElementById("log");
+var money = document.getElementById('money'); //Bank roll
+var slider = document.getElementById('money-slider'); 
+var betAmount = document.getElementById('bet-amount'); //Span betting amount
+var betSide = document.getElementById('bet-side'); //Players picked side
+var sideOne = document.getElementById('heads');
+var sideTwo = document.getElementById('tails');
+var headsOption = document.getElementById('heads-option');
+var tailsOption = document.getElementById('tails-option');
+var decision = document.getElementById('decision');
+var log = document.getElementById('log'); //Player log
+var radioButtons = document.getElementsByName('action'); //All radio buttons
 
 var bankRoll = 100;
 var moneyPerBet = 2;
@@ -48,16 +49,33 @@ heads = 0;
 
 function updateMoney()
 {
-    money.innerText = bankRoll;
-    betAmount.innerText = slider.value;
-    betAmount.value = slider.value;
-    sliderAmount = parseInt(slider.value, 10);
+    money.innerText = bankRoll; //Display bank roll at the top
+    slider.max = bankRoll; //Change max slider amount to what we have in our bank
+    betAmount.innerText = slider.value; //Span text change to slider value
+    betAmount.value = slider.value; //Set span value to slider's value
+    sliderAmount = parseInt(slider.value, 10); //Get our final bet $ in a variable
+    if(bankRoll == 0)
+    {
+      log.innerText = "Bankrupt! To keep playing, load some more money."
+      readyButton.style.display = "none";
+      headsOption.style.display = "none";
+      tailsOption.style.display = "none";
+    }
 }
-        
+
+
 setInterval(function()
 {
     updateMoney();
 }, 60);
+
+function resetBet()
+{
+  for(i = 0; i < radioButtons.length; i++)
+  {
+    radioButtons[i].checked = false;
+  }
+}
 
 //Socket.io
 $(function(){
@@ -97,7 +115,7 @@ $(function(){
     /* Add classes that do the flip animation */
     coin.classList.toggle('flip');
     coin.classList.add('toss');
-
+    resetBet(); //Take away button selected graphic
     // Waits 3sec to display flip result
     setTimeout(function() {
     //If returned coin flip is heads do our animations on the client side
@@ -127,8 +145,6 @@ $(function(){
     //Reset our controls
     heads = 0;
     tails = 0;
-    $("heads").prop("checked", false);
-    $("tails").prop("checked", false);
   });
   //If the player loses
   socket.on('lose', function(){
@@ -143,8 +159,6 @@ $(function(){
     //Reset our controls
     heads = 0;
     tails = 0;
-    $("heads").prop("checked", false);
-    $("tails").prop("checked", false);
   });
   //If the player draws
   socket.on('draw', function(){
@@ -158,8 +172,6 @@ $(function(){
     //Reset our controls
     heads = 0;
     tails = 0;
-    $("heads").prop("checked", false);
-    $("tails").prop("checked", false);
   });
 
 

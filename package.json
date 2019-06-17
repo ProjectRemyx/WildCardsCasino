@@ -8,9 +8,6 @@
         "serve": "^11.0.1",
         "socket.io": "^2.2.0"
     },
-    "engines": {
-        "node": "10.16.0"
-    },
     "scripts":{
         "start": "node index.js"
     }

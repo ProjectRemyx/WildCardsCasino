@@ -61,6 +61,7 @@ setInterval(function()
 
 //Socket.io
 $(function(){
+  var playerChoice = document.forms[0].action;
   var socket = io();
   //On click of our ready button
   $('#ready').click(function(e){
@@ -77,9 +78,9 @@ $(function(){
         headsOption.style.display = "none";
         tailsOption.style.display = "none";
 
-        users.bet = $('#bet-amount').val(); //Get our bet amount
-        users.action = $('#decision').val(); //Get our bet decision 
-        socket.emit('Player Action', users); //Emit our information to the server
+        // users.bet = $('#bet-amount').val(); //Get our bet amount
+        // users.action = $('#decision').val(); //Get our bet decision 
+        socket.emit('Player Action', playerChoice.value); //Emit our information to the server
         log.innerText = "Bet Locked. Waiting on opponent."
         $('#decision').val(''); //Reset decision for next time
     }
@@ -117,48 +118,48 @@ $(function(){
   socket.on('win', function(){
     //Show our buttons
     readyButton.style.display = "block";
-    sideOne.style.display = "block";
-    sideTwo.style.display = "block";
+    headsOption.style.display = "block";
+    tailsOption.style.display = "block";
 
     //Give us our money and display a message
     bankRoll += sliderAmount;
     log.innerText = "Congratulations, you won!";
     //Reset our controls
-    sideOne.style.boxShadow = "";
-    sideTwo.style.boxShadow = "";
     heads = 0;
     tails = 0;
+    $("heads").prop("checked", false);
+    $("tails").prop("checked", false);
   });
   //If the player loses
   socket.on('lose', function(){
     //Show our buttons
     readyButton.style.display = "block";
-    sideOne.style.display = "block";
-    sideTwo.style.display = "block";
+    headsOption.style.display = "block";
+    tailsOption.style.display = "block";
 
     //Take away our money and display a message
     bankRoll -= sliderAmount;
     log.innerText = "You lost! Better luck next time!";
     //Reset our controls
-    sideOne.style.boxShadow = "";
-    sideTwo.style.boxShadow = "";
     heads = 0;
     tails = 0;
+    $("heads").prop("checked", false);
+    $("tails").prop("checked", false);
   });
   //If the player draws
   socket.on('draw', function(){
     //Show our buttons
     readyButton.style.display = "block";
-    sideOne.style.display = "block";
-    sideTwo.style.display = "block";
+    headsOption.style.display = "block";
+    tailsOption.style.display = "block";
 
     //Display a message
     log.innerText = "You both drew! Flip again!";
     //Reset our controls
-    sideOne.style.boxShadow = "";
-    sideTwo.style.boxShadow = "";
     heads = 0;
     tails = 0;
+    $("heads").prop("checked", false);
+    $("tails").prop("checked", false);
   });
 
 

@@ -25,6 +25,24 @@ justify-content: center;
   left: -10000px;
 }
 
+/* Hide Radio Buttons */
+[type=radio]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  transform:scale(0.8,0.8);
+}
+
 /* ----- NAV ----- */
 /* https://www.w3schools.com/howto/howto_js_topnav_responsive.asp */
 /* Add a black background color to the top navigation */
@@ -160,6 +178,13 @@ justify-content: center;
   #money-slider{
     width: 25%;
   }
+
+.coin{
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  margin-top: 5px;
+}
 
 #heads{
 /* Size of Coin */

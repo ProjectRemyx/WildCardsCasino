@@ -3,6 +3,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 let express = require('express');
 
+let users = {};
 let playerActions = 0;
 
 //Static files served in static folder

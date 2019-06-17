@@ -9,6 +9,8 @@ var betAmount = document.getElementById("bet-amount");
 var betSide = document.getElementById("bet-side");
 var sideOne = document.getElementById("heads");
 var sideTwo = document.getElementById("tails");
+var headsOption = document.getElementById("heads-option");
+var tailsOption = document.getElementById("tails-option");
 var decision = document.getElementById("decision");
 var log = document.getElementById("log");
 
@@ -72,14 +74,8 @@ $(function(){
         e.preventDefault(); //Stop page from loading
         //Get rid our controls after sending out 
         readyButton.style.display = "none";
-        if(tails == 1)
-        {
-          sideOne.style.display = "none";
-        }
-        else
-        {
-          sideTwo.style.display = "none";
-        }
+        headsOption.style.display = "none";
+        tailsOption.style.display = "none";
 
         users.bet = $('#bet-amount').val(); //Get our bet amount
         users.action = $('#decision').val(); //Get our bet decision 

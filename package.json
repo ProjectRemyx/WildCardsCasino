@@ -1,11 +1,18 @@
 {
-    "name": "Lab-3-Sockets-2019",
+    "name": "Wild-Cards-Casino",
     "version": "0.0.1",
-    "description": "Trends in Web Development socket.io app",
+    "description": "Coin flip socket.io app",
     "dependencies": {
         "express": "^4.17.1",
         "express-static": "^1.2.6",
         "serve": "^11.0.1",
         "socket.io": "^2.2.0"
+    },
+    "engines": {
+        "node": "10.16.0"
+    },
+    "scripts":{
+        "start": "node index.js"
     }
+    
 }

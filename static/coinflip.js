@@ -44,115 +44,6 @@ tails = 1;
 heads = 0;
 });
 
-
-/* Get random number 1 or 2 */
-function getRandomNumber() {
-  return Math.floor(Math.random() * (2 - 1 + 1)) + 1
-}
-
-function startGame()
-{
-    let userID = Object.keys(users);
-    /* When you flip the coin change it so that in the air it's both */
-    coin.style.backgroundImage = "url('/static/coin.png')";
-    /* Get our random number and put it into a variable */
-    var randomNumber = getRandomNumber();
-    /* Add classes that do the flip animation */
-    coin.classList.toggle('flip');
-    coin.classList.add('toss');
-    
-    // Waits 3sec to display flip result
-    setTimeout(function() {
-      if (randomNumber == 1) {
-        coin.style.backgroundImage = "url('/static/heads.png')";
-        if(users[userID[0]].action == "heads" && users[userID[1]].action == "heads")
-        {
-            bankRoll += sliderAmount;
-            log.innerText = "Congratulations, you both win! Please play again.";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            heads = 0;
-        }
-        else if(users[userID[0]].action == "heads" && users[userID[1]].action == "tails")
-        {
-          bankRoll += sliderAmount;
-          log.innerText = "Congratulations, you won! But your friend wasn't so lucky.";
-          sideOne.style.boxShadow = "";
-          sideTwo.style.boxShadow = "";
-          heads = 0;
-        }
-        else if(users[userID[0]].action == "tails" && users[userID[1]].action == "tails")
-        {
-          bankRoll -= sliderAmount;
-          log.innerText = "Aww man, you both lost.";
-          sideOne.style.boxShadow = "";
-          sideTwo.style.boxShadow = "";
-          heads = 0;
-        }
-        else if(users[userID[0]].action == "tails" && users[userID[1]].action == "heads")
-        {
-          bankRoll -= sliderAmount;
-          log.innerText = "Aww man you lost, but your friend won!";
-          sideOne.style.boxShadow = "";
-          sideTwo.style.boxShadow = "";
-          heads = 0;
-        }
-        else
-        {
-            log.innerText = "Unrecorded Result";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            tails = 0;
-            heads = 0;
-        }
-      } 
-      else if (randomNumber == 2) {
-        coin.style.backgroundImage = "url('/static/tails.png')";
-        if(users[userID[0]].action == "tails" && users[userID[1]].action == "tails")
-        {
-            bankRoll += sliderAmount;
-            log.innerText = "Congratulations, you both win! Please play again.";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            tails = 0;
-        }
-        else if(users[userID[0]].action == "tails" && users[userID[1]].action == "heads")
-        {
-            bankRoll += sliderAmount;
-            log.innerText = "Congratulations, you won! But your friend wasn't so lucky.";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            tails = 0;
-        }
-        else if(users[userID[0]].action == "heads" && users[userID[1]].action == "heads")
-        {
-            bankRoll -= sliderAmount;
-            log.innerText = "Aww man you both lost.";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            heads = 0;
-        }
-        else if(users[userID[0]].action == "heads" && users[userID[1]].action == "tails")
-        {
-            bankRoll -= sliderAmount;
-            log.innerText = "Aww man you lost, but your friend won!";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            heads = 0;
-        }
-        else
-        {
-            log.innerText = "Unrecorded Result";
-            sideOne.style.boxShadow = "";
-            sideTwo.style.boxShadow = "";
-            heads = 0;
-            tails = 0;
-        }
-      }
-      coin.classList.remove('toss');
-    }, 800);
-}
-
 function updateMoney()
 {
     money.innerText = bankRoll;
@@ -202,5 +93,77 @@ $(function(){
   socket.on('sentAction', function(){
     log.innerText = "Your opponent has locked in a bet!";
   });
+
+  socket.on('result', function(data){
+    /* When you flip the coin change it so that in the air it's both */
+    coin.style.backgroundImage = "url('/static/coin.png')";
+    /* Add classes that do the flip animation */
+    coin.classList.toggle('flip');
+    coin.classList.add('toss');
+
+    // Waits 3sec to display flip result
+    setTimeout(function() {
+    //If returned coin flip is heads do our animations on the client side
+    if(data == 1)
+    {
+      coin.style.backgroundImage = "url('/static/heads.png')";
+    }
+    else if(data == 2)
+    {
+      coin.style.backgroundImage = "url('/static/tails.png')";      
+    }
+    coin.classList.remove('toss');
+    }, 800);
+
+  });
+
+  //If the player wins
+  socket.on('win', function(){
+    //Show our buttons
+    readyButton.style.display = "block";
+    sideOne.style.display = "block";
+    sideTwo.style.display = "block";
+
+    //Give us our money and display a message
+    bankRoll += sliderAmount;
+    log.innerText = "Congratulations, you won!";
+    //Reset our controls
+    sideOne.style.boxShadow = "";
+    sideTwo.style.boxShadow = "";
+    heads = 0;
+    tails = 0;
+  });
+  //If the player loses
+  socket.on('lose', function(){
+    //Show our buttons
+    readyButton.style.display = "block";
+    sideOne.style.display = "block";
+    sideTwo.style.display = "block";
+
+    //Take away our money and display a message
+    bankRoll -= sliderAmount;
+    log.innerText = "You lost! Better luck next time!";
+    //Reset our controls
+    sideOne.style.boxShadow = "";
+    sideTwo.style.boxShadow = "";
+    heads = 0;
+    tails = 0;
+  });
+  //If the player draws
+  socket.on('draw', function(){
+    //Show our buttons
+    readyButton.style.display = "block";
+    sideOne.style.display = "block";
+    sideTwo.style.display = "block";
+
+    //Display a message
+    log.innerText = "You both drew! Flip again!";
+    //Reset our controls
+    sideOne.style.boxShadow = "";
+    sideTwo.style.boxShadow = "";
+    heads = 0;
+    tails = 0;
+  });
+
 
 });

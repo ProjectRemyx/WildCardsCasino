@@ -5,6 +5,7 @@ let express = require('express');
 
 let users = {};
 let playerActions = 0;
+let playerCount = 0;
 
 //Static files served in static folder
 app.use('/static', express.static('static'))
@@ -16,11 +17,24 @@ app.get('/', function(req, res){
 
 //Start io
 io.on('connection', function(socket){
-    console.log('a user connected');
+    console.log('User Connected', socket.id);
+    playerCount++;
 
     socket.on('disconnect', function(){
-      console.log('user disconnected');
+      playerCount--;
+      console.log('User Disconnected');
     });
+
+    if(playerCount > 2){
+      socket.emit('playerOverflow', 'Too many players connected');
+      socket.disconnect();
+    }
+    if(playerCount < 2){
+      socket.emit('playerWait', 'Waiting for opponent to connect');
+    }
+    if(playerCount == 2){
+      io.sockets.emit('maxPlayers', '1v1');
+    }
     
     //When the server receives the emitted "Player Action" from the client, do this
     socket.on('Player Action', function(data){
@@ -38,6 +52,11 @@ io.on('connection', function(socket){
         users = {};
         playerActions = 0;
       }
+    });
+
+    socket.on('resetBet', function(){
+      users = {};
+      io.sockets.emit('resetBet');
     });
 
     /* Get random number 1 or 2 */

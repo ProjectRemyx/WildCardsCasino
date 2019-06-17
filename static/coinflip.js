@@ -105,6 +105,15 @@ $(function(){
   });
 
   //SOCKET LISTENERS - Listen for information from the server
+  socket.on('playerOverflow', function(){
+    log.innerText = "2 Players are currently playing already";
+  });
+  socket.on('playerWait', function(){
+    log.innerText = "Waiting for opponent to connect";
+  });
+  socket.on('maxPlayers', function(){
+    log.innerText = "Please pick an amount and side to bet on."
+  });
   socket.on('sentAction', function(){
     log.innerText = "Your opponent has locked in a bet!";
   });
@@ -115,7 +124,7 @@ $(function(){
     /* Add classes that do the flip animation */
     coin.classList.toggle('flip');
     coin.classList.add('toss');
-    resetBet(); //Take away button selected graphic
+    socket.emit('resetBet'); //Server side reset, empty values on server
     // Waits 3sec to display flip result
     setTimeout(function() {
     //If returned coin flip is heads do our animations on the client side
@@ -130,6 +139,10 @@ $(function(){
     coin.classList.remove('toss');
     }, 800);
 
+  });
+
+  socket.on('resetBet', function(){
+    resetBet(); //After making a round trip, come back and tell client to reset selection
   });
 
   //If the player wins

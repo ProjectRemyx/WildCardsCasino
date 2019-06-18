@@ -22,6 +22,7 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function(){
       playerCount--;
+      io.sockets.emit('disconnect', 'Your opponent disconnected!');
       console.log('User Disconnected');
     });
 

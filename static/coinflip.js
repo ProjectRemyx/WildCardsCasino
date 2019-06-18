@@ -117,6 +117,9 @@ $(function(){
   socket.on('sentAction', function(){
     log.innerText = "Your opponent has locked in a bet!";
   });
+  socket.on('disconnect', function(){
+    log.innerText = "Your opponent disconnected!";
+  });
 
   socket.on('result', function(data){
     /* When you flip the coin change it so that in the air it's both */

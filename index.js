@@ -19,10 +19,11 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
     console.log('User Connected', socket.id);
     playerCount++;
+    io.sockets.emit('connected', playerCount);
 
     socket.on('disconnect', function(){
       playerCount--;
-      io.sockets.emit('disconnect', 'Your opponent disconnected!');
+      io.sockets.emit('disconnect', playerCount);
       console.log('User Disconnected');
     });
 

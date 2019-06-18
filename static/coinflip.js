@@ -14,6 +14,7 @@ var tailsOption = document.getElementById('tails-option');
 var decision = document.getElementById('decision');
 var log = document.getElementById('log'); //Player log
 var radioButtons = document.getElementsByName('action'); //All radio buttons
+var userCount = document.getElementById('connected-users'); //Span that shows number of users
 
 var bankRoll = 100;
 var moneyPerBet = 2;
@@ -105,6 +106,10 @@ $(function(){
   });
 
   //SOCKET LISTENERS - Listen for information from the server
+  socket.on('connected', function(data){
+    userCount.innerText = data;
+  });
+
   socket.on('playerOverflow', function(){
     log.innerText = "2 Players are currently playing already";
   });
@@ -117,7 +122,8 @@ $(function(){
   socket.on('sentAction', function(){
     log.innerText = "Your opponent has locked in a bet!";
   });
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function(data){
+    userCount.innerText = data;
     log.innerText = "Your opponent disconnected!";
   });
 

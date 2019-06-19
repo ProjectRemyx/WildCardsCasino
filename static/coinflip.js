@@ -125,6 +125,12 @@ $(function(){
   socket.on('disconnect', function(data){
     userCount.innerText = data;
     log.innerText = "Your opponent disconnected!";
+
+    if(data == "io server disconnect")
+    {
+      userCount.innerText = "2/2";
+      log.innerText = "Game is currently full";
+    }
   });
 
   socket.on('result', function(data){

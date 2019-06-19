@@ -117,6 +117,10 @@ $(function(){
     log.innerText = "Waiting for opponent to connect";
   });
   socket.on('maxPlayers', function(){
+    //Show our controls just in case the player joined in on a full game
+    readyButton.style.display = "block";
+    headsOption.style.display = "block";
+    tailsOption.style.display = "block";
     log.innerText = "Please pick an amount and side to bet on."
   });
   socket.on('sentAction', function(){
@@ -130,6 +134,10 @@ $(function(){
     {
       userCount.innerText = "2/2";
       log.innerText = "Game is currently full";
+      //Hide controls if game is full
+      readyButton.style.display = "none";
+      headsOption.style.display = "none";
+      tailsOption.style.display = "none";
     }
   });
 
